@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification System</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-shield-alt"></i> OTP Verification System</h1>
+            <p class="subtitle">Secure authentication via Email or SMS</p>
+        </header>
+
+        <main>
+            <div class="card">
+                <h2><i class="fas fa-envelope"></i> Send OTP via Email</h2>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email address">
+                </div>
+                <button id="sendEmailOtp" class="btn btn-email">
+                    <i class="fas fa-paper-plane"></i> Send Email OTP
+                </button>
+                <div id="emailResult" class="result"></div>
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-mobile-alt"></i> Send OTP via SMS</h2>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="Enter your phone number (e.g., +1234567890)">
+                </div>
+                <button id="sendPhoneOtp" class="btn btn-phone">
+                    <i class="fas fa-sms"></i> Send SMS OTP
+                </button>
+                <div id="phoneResult" class="result"></div>
+            </div>
+
+            <div class="card verify-card">
+                <h2><i class="fas fa-check-circle"></i> Verify OTP</h2>
+                <div class="form-group">
+                    <label for="identifier">Email or Phone Number</label>
+                    <input type="text" id="identifier" placeholder="Enter email or phone used for OTP">
+                </div>
+                <div class="form-group">
+                    <label for="otp">OTP Code</label>
+                    <input type="text" id="otp" placeholder="Enter 6-digit OTP" maxlength="6">
+                </div>
+                <button id="verifyOtp" class="btn btn-verify">
+                    <i class="fas fa-check"></i> Verify OTP
+                </button>
+                <div id="verifyResult" class="result"></div>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="fas fa-info-circle"></i> How it works</h3>
+                <ol>
+                    <li>Enter your email or phone number</li>
+                    <li>Click "Send OTP" to receive a 6-digit code</li>
+                    <li>Enter the code in the verification section</li>
+                    <li>Click "Verify OTP" to complete authentication</li>
+                </ol>
+                <p class="note"><i class="fas fa-exclamation-triangle"></i> Note: OTPs expire in 5 minutes and have 3 attempt limits</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>OTP Verification System &copy; 2024 | Backend: FastAPI | Frontend: HTML/CSS/JS</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

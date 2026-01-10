@@ -1,0 +1,10 @@
+# Environments
+venv/
+.env
+__pycache__/
+*.pyc
+
+# Local history
+.gemini/
+.idea/
+.vscode/
