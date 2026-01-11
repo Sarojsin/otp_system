@@ -16,6 +16,17 @@ class PhoneOTPSender:
     def send_otp(self, phone_number: str) -> dict:
         """Send OTP via SMS to phone number"""
         try:
+            # Basic validation
+            clean_to = phone_number.replace(" ", "").replace("-", "")
+            clean_from = str(self.from_number).replace(" ", "").replace("-", "")
+            
+            if clean_to == clean_from:
+                return {
+                    "success": False,
+                    "message": f"Twilio Error: 'To' and 'From' number cannot be the same ({phone_number}). Please use a different recipient number.",
+                    "phone": phone_number
+                }
+
             # Generate OTP
             otp = generate_otp()
             
@@ -51,11 +62,15 @@ class PhoneOTPSender:
         except TwilioRestException as e:
             error_msg = str(e)
             if e.code == 21606:
-                error_msg = f"The 'From' number {self.from_number} is not a valid Twilio number or verified Caller ID. Please check your Twilio Dashboard."
+                error_msg = f"The 'From' number {self.from_number} is not a valid Twilio number or verified Caller ID."
             elif e.code == 21659:
-                error_msg = f"Twilio number {self.from_number} cannot send SMS to the destination country. Check your geo-permissions in Twilio."
+                error_msg = f"Twilio number {self.from_number} cannot send SMS to the destination country. Check your geo-permissions in Twilio Console -> Messaging -> Settings -> Geo-Permissions."
+            elif e.code == 21211:
+                error_msg = f"The phone number {phone_number} is invalid."
+            elif e.code == 21266:
+                error_msg = f"Twilio 'To' and 'From' number cannot be the same ({phone_number})."
             
-            print(f"Twilio error: {error_msg}")
+            print(f"Twilio error {e.code}: {error_msg}")
             return {
                 "success": False,
                 "message": f"Twilio Error: {error_msg}",
